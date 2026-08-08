@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% for i in messages %}
+<script>alert("{{i}}")</script>
+{% endfor %}
+
+<form id="contactForm" method="post" action="{% url 'sellerupdate' e.id %}" enctype="multipart/form-data">
+{%csrf_token%}
+<img src="{{e.image.url}}" class="img-fluid" alt="Image" width="200px" height="200px">
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" name="product_name" placeholder="Product Name" value="{{e.product_name}}" required data-error="Please enter your Product Name">
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" name="product_description" placeholder="Product Description" value="{{e.product_description}}" required data-error="Please enter your Product Name">
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <!-- <div class="col-md-12">
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" name="category" placeholder="Category" value="{{e.category}}" required data-error="Please enter your Product Category">
+            <div class="help-block with-errors"></div>
+        </div>
+    </div> -->
+     <div class="col-md-12">
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" name="price" placeholder="Price" value="{{e.price}}" required data-error="Please enter your Product Price">
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" name="quantity" placeholder="Quantity" value="{{e.quantity}}" required data-error="Please enter your Product Quantity">
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <input type="file" class="form-control" id="file" name="image" placeholder="image" value="{{e.image}}"  data-error="Please enter Image">
+            <div class="help-block with-errors"></div>
+        </div>
+    </div>
+    <div class="submit-button text-center">
+                                        <button class="btn hvr-hover" id="submit" type="submit">Update Product</button>
+                                        
+                                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                        <div class="clearfix"></div>
+                                    </div>
+</div>
+{% endblock %}

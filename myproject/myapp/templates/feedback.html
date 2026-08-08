@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% for i in messages %}
+<script>alert("{{i}}")</script>
+{% endfor %}
+<style>
+    .star {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.star.selected {
+    color: #ffc107;
+}
+</style>
+
+ <div class="contact-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-sm-12">
+                    <div class="contact-form-right">
+                        
+                        <h2>..FEEDBACK..</h2>
+                        
+                        <form id="contactForm" method="post" action="{% url 'feedback' product.id %}">
+                            {%csrf_token%}
+                            
+                            <div class="row">
+                                  <div class="col-md-12">
+                                    
+                                    <div class="form-group">
+                                        <h4 class="mb-0 fw-bold">
+                                             {{ product.product_name }}
+                                        </h4>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="message" placeholder="Add Feedback" name="comment" rows="4" data-error="Write your Address" required></textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center mb-4">
+                                    <span class="text-yellow-500 cursor-pointer" id="star-rating">
+                                        <i class="fas fa-star star" data-value="1"></i>
+                                        <i class="fas fa-star star" data-value="2"></i>
+                                        <i class="fas fa-star star" data-value="3"></i>
+                                        <i class="fas fa-star star" data-value="4"></i>
+                                        <i class="fas fa-star star" data-value="5"></i>
+                                    </span>
+                                    <input type="hidden" name="rating" id="rating" value="0"><br><br>
+                                    <button class="btn hvr-hover" id="submit" type="submit">Add Review</button>
+                                </div>
+                            
+                            </div>
+                        </form>
+                        <script>
+                                const stars = document.querySelectorAll('#star-rating i');
+                                const ratingInput = document.getElementById('rating');
+
+                                stars.forEach(star => {
+                                    star.addEventListener('click', () => {
+                                        const value = star.getAttribute('data-value');
+                                        // Toggle the selected class
+                                        stars.forEach(s => {
+                                            if (s.getAttribute('data-value') <= value) {
+                                                s.classList.toggle('selected'); // Toggle gold color
+                                            } else {
+                                                s.classList.remove('selected'); // Remove gold from higher stars
+                                            }
+                                        });
+                                        // Update the hidden input value based on the selected stars
+                                        ratingInput.value = Array.from(stars).filter(s => s.classList.contains('selected')).length;
+                                    });
+                                });
+                            </script>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
